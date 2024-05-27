@@ -28,12 +28,12 @@ namespace InteractByNameModule.MaterialChangerModule
             Deactivate();
         }
 
-        public void Activate()
+        private void Activate()
         {
             gameObject.GetComponent<Renderer>().material = _activeMaterial;
         }
 
-        public void Deactivate()
+        private void Deactivate()
         {
             gameObject.GetComponent<Renderer>().material = _inactiveMaterial;
         }
