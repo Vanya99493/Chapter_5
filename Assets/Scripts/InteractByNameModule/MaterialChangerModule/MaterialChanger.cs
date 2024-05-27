@@ -1,24 +1,39 @@
 ﻿using UnityEngine;
 
-namespace InteractionModule.MaterialChangerModule
+namespace InteractByNameModule.MaterialChangerModule
 {
-    public class MaterialChanger : MonoBehaviour, IStartInteractByViewHandler, IEndInteractByViewHandler
+    public class MaterialChanger : MonoBehaviour
     {
+        [SerializeField] private Material _inactiveMaterial;
         [SerializeField] private Material _activeMaterial;
 
-        private Material _inactiveMaterial;
-
+        private Renderer _renderer;
+        
         private void Awake()
         {
-            _inactiveMaterial = gameObject.GetComponent<Renderer>().material;
+            _renderer = gameObject.GetComponent<Renderer>();
+            if (_inactiveMaterial == null)
+            {
+                _inactiveMaterial = _renderer.material;
+            }
+        }
+        
+        public virtual void OnPointerEnter()
+        {
+            Activate();
+        }
+        
+        public virtual void OnPointerExit()
+        {
+            Deactivate();
         }
 
-        public void StartInteract()
+        public void Activate()
         {
             gameObject.GetComponent<Renderer>().material = _activeMaterial;
         }
 
-        public void EndInteract()
+        public void Deactivate()
         {
             gameObject.GetComponent<Renderer>().material = _inactiveMaterial;
         }
